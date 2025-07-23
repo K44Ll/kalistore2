@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-q66)6spda+xnvzcuwa_li2dyq5knf@up+lk=lx6#0qt8@76@3v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['kalistore2.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
