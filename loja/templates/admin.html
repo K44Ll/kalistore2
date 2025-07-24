@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Kali's Store</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="glass-container admin-container">
+        <h1 class="glitch" data-text="Painel de administração">Painel de administração</h1>
+        <hr />
+
+        <div class="cabecalho">
+            <button onclick="window.location.href='{% url 'home' %}'">Home</button>
+            <button>Sobre</button>
+            <button>Contato</button>
+            <button onclick="window.location.href='{% url 'Ajuda' %}'">Ajuda</button>
+        </div>
+
+        <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data" class="upload-form">
+            {% csrf_token %}
+            <label class="upload-label">
+                Escolha um arquivo
+                <input type="file" name="file" class="file-input" required>
+            </label>
+            <button type="submit" class="submit-button">Enviar</button>
+        </form>
+
+        {% if url %}
+            <p class="upload-success">✅ Arquivo enviado: <a href="{{ url }}" target="_blank">{{ url }}</a></p>
+        {% endif %}
+
+        {% if error %}
+            <p class="upload-error">❌ Erro: {{ error }}</p>
+        {% endif %}
+        
+    </div>
+</body>
+</html>

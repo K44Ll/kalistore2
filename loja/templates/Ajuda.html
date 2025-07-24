@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kali's Store - Ajuda</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="glass-container">
+    <h1 class="glitch" data-text="Ajuda">Ajuda</h1>
+    <hr>
+
+    <div class="cabecalho">
+      {% if user.is_authenticated %}
+        <p>Olá, {{ user.username }}!</p>
+        <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit">Sair</button>
+        </form>
+      {% else %}
+        <button onclick="window.location.href = '{% url 'login' %}';">Login</button>
+        <button onclick="window.location.href = '{% url 'register' %}';">Cadastro</button>
+      {% endif %}
+      <button>Sobre</button>
+      <button>Contato</button>
+      <button onclick="window.location.href='{% url 'Ajuda' %}'">Ajuda</button>
+    </div>
+
+    <!-- FAQ Section -->
+    <h2>FAQs</h2>
+<hr>
+
+<div class="projetos-container">
+
+  <div class="lado-a-lado">
+    <div>
+      <h1>Como faço para comprar?</h1>
+      <p>Escolha um produto, clique em "comprar", finalize e pague via PIX. O envio é automático após o pagamento.</p>
+    </div>
+  </div>
+
+  <div class="lado-a-lado">
+    <div>
+      <h1>Quais os métodos de pagamento?</h1>
+      <p>Apenas PIX, pago após o pedido. Recebido = entregue automaticamente.</p>
+    </div>
+  </div>
+
+  <div class="lado-a-lado">
+    <div>
+      <h1>Preciso criar uma conta?</h1>
+      <p>Sim, para gerenciar seus pedidos e acessar o suporte com segurança.</p>
+    </div>
+  </div>
+
+  <div class="lado-a-lado">
+    <div>
+      <h1>Não recebi meu pedido!</h1>
+      <p>Verifique se o pagamento foi confirmado. Caso sim e ainda não recebeu, entre em contato via chat.</p>
+    </div>
+  </div>
+
+</div>
+
+<p style="margin-top: 30px; font-size: 1.1rem;">
+  Não achou sua dúvida? <a href="{% url 'chat' %}" style="color: #00d4ff;">Entre em nosso chat</a>
+</p>
+
+
+  </div>
+</body>
+</html>

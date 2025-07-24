@@ -1,0 +1,128 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fale Conosco - Kali's Store</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chat-messages {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .mensagem {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .mensagem strong {
+            color: #82eaff;
+        }
+
+        .timestamp {
+            display: block;
+            font-size: 0.8em;
+            color: #ccc;
+            margin-top: 4px;
+        }
+
+        .sem-mensagens {
+            color: #bbb;
+            font-style: italic;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input-area input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            background-color: #222;
+            color: white;
+        }
+
+        .chat-input-area button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .chat-input-area button:hover {
+            background-color: #45a049;
+        }
+
+        .glitch {
+            color: #fff;
+            font-size: 2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-container">
+        <h1 class="glitch" data-text="- = Fale Conosco = -">- = Fale Conosco = -</h1>
+        <hr />
+        <div class="cabecalho">
+            {% if user.is_authenticated %}
+                <p>Olá, {{ user.username }}!</p>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Sair</button>
+                </form>
+            {% else %}
+                <button onclick="window.location.href='{% url 'login' %}';">Login</button>
+                <button onclick="window.location.href='{% url 'register' %}';">Cadastro</button>
+            {% endif %}
+            <button>Sobre</button>
+            <button>Contato</button>
+            <button onclick="window.location.href='{% url 'Ajuda' %}';">Ajuda</button>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-messages" id="chat-messages">
+                {% if mensagens %}
+                    {% for msg in mensagens %}
+                        <div class="mensagem">
+                            <strong>{{ msg.user.username }}</strong>: <p class="texto-menssagem">{{ msg.texto }}</p>
+                            <span class="timestamp">{{ msg.criado_em|date:"d/m/Y H:i" }}</span>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="sem-mensagens">Nenhuma mensagem ainda.</p>
+                {% endif %}
+            </div>
+
+            <form id="chat-form" class="chat-input-area" method="post" action="{% url 'enviar_mensagem' %}">
+                {% csrf_token %}
+                <input type="text" id="message-input" name="message" placeholder="Digite sua mensagem..." autocomplete="off" required />
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
