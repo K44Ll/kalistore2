@@ -122,14 +122,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-# settings.py
-
 STATIC_URL = '/static/'
 
-# Durante o desenvolvimento (opcional, mas útil)
+# Diretório onde o collectstatic irá copiar todos os arquivos estáticos (para produção)
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Durante o desenvolvimento (útil para o runserver encontrar os arquivos estáticos)
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # ou os caminhos onde seus arquivos static estão
+    BASE_DIR / "static",
 ]
+
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
