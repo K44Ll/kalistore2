@@ -1,11 +1,85 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kali's store Home</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body>
-    <h1>Home</h1>
+
+    <div class="glass-container">
+        <h1 class="glitch" data-text="Kali's Store">Kali's Store</h1>
+        <hr />
+        <div class="cabecalho">
+            {% if user.is_authenticated %}
+                <p>Ola, {{ user.username }}!</p>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Sair</button>
+                </form>
+            {% else %}
+                <button onclick="window.location.href = '{% url 'login' %}';">login</button>
+                <button onclick="window.location.href = '{% url 'register' %}';">cadastro</button>
+            {% endif %}
+            <button>sobre</button>
+            <button>contato</button>
+            <button>ajuda</button>
+        </div>
+        <h2>Projetos:</h2>
+
+        <div class="projetos-container">
+            <div class="lado-a-lado" onclick="window.location.href='{% url 'pedir' %}'">
+                <img src="{% static 'imgs/exemplo.png' %}" alt="Exemplo imagem" />
+                <div>
+                    <h1>Site estático</h1>
+                    <p>Um site estático simples com HTML, CSS e JS</p>
+                </div>
+            </div>
+
+            <div class="lado-a-lado" onclick="window.location.href='{% url 'pedir' %}'">
+                <img src="{% static 'imgs/exemplo.png' %}" alt="Exemplo imagem" />
+                <div>
+                    <h1>Aplicação python</h1>
+                    <p>Uma aplicação simples em Python</p>
+                </div>
+            </div>
+
+            <div class="lado-a-lado" onclick="window.location.href='{% url 'pedir' %}'">
+                <img src="{% static 'imgs/exemplo.png' %}" alt="Edição de imagem" />
+                <div>
+                    <h1>Edição de imagem</h1>
+                    <p>Edição simples de imagens</p>
+                </div>
+            </div>
+
+            <div class="lado-a-lado" onclick="window.location.href='{% url 'pedir' %}'">
+                <img src="{% static 'imgs/exemplo.png' %}" alt="Edição de vídeo" />
+                <div>
+                    <h1>Edição de vídeo</h1>
+                    <p>Edição simples de vídeo</p>
+                </div>
+            </div>
+
+            <div class="lado-a-lado" onclick="window.location.href='{% url 'pedir' %}'">
+                <img src="{% static 'imgs/exemplo.png' %}" alt="Site com Django" />
+                <div>
+                    <h1>Site com django</h1>
+                    <p>Um site simples com Django</p>
+                </div>
+            </div>
+
+            <div class="lado-a-lado" onclick="window.location.href='{% url 'pedir' %}'">
+                <img src="{% static 'imgs/exemplo.png' %}" alt="Site com React" />
+                <div>
+                    <h1>Site com react</h1>
+                    <p>Um site simples com react</p>
+                </div>
+            </div>
+        </div>
+    </div>    
 </body>
 </html>

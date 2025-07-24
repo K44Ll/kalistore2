@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kali's store - Cadastro</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="glass-container">
+        <h1 class="glitch" data-text="Cadastro">Cadastro</h1>
+        <hr />
+        <div class="cabecalho">
+            <button onclick="window.location.href='{% url 'login' %}'">Login</button>
+            <button>Sobre</button>
+            <button>Contato</button>
+            <button>Ajuda</button>
+        </div>
+
+        <div class="divlogin">
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Usuário" required>
+                <input type="password" name="password" placeholder="Senha" required>
+                <input type="password" name="confirm_password" placeholder="Confirmar Senha" required>
+                <button type="submit">Cadastrar</button>
+            </form>
+            {% if error %}
+            <p style="color: red;">{{ error }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

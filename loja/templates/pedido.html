@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pedido - Kali's Store</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="glass-container">
+    <h1 class="glitch" data-text="Pedido">Pedido</h1>
+    <hr />
+    <div class="cabecalho">
+      {% if user.is_authenticated %}
+        <p style="margin-right: 20px;">Olá, {{ user.username }}!</p>
+        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit">Sair</button>
+        </form>
+      {% else %}
+        <button onclick="window.location.href = '{% url 'login' %}';">Login</button>
+        <button onclick="window.location.href = '{% url 'register' %}';">Cadastro</button>
+      {% endif %}
+      <button>Sobre</button>
+      <button>Contato</button>
+      <button>Ajuda</button>
+    </div>
+
+    <form method="post" class="divlogin" style="max-width: 420px; margin: 30px auto 0;">
+      {% csrf_token %}
+
+      <label for="tipo" style="color: var(--text-color); font-weight: 600; text-align: left; display: block; margin-bottom: 6px;">
+        Produto
+      </label>
+      <select name="tipo" id="tipo" required style="padding: 14px 20px; border-radius: 16px; border: 1.5px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.15); color: #000000; font-size: 1rem; outline: none; width: 100%; box-sizing: border-box; margin-bottom: 12px;">
+        <option value="" disabled selected>- = Selecione um produto = -</option>
+        <option value="site estatico">Site estático</option>
+        <option value="site django">Site com Django</option>
+        <option value="python">Aplicativo em Python</option>
+        <option value="img">Edição de imagem</option>
+        <option value="video">Edição de vídeo</option>
+        <option value="react">Site com React</option>
+      </select>
+
+      <label for="email" style="color: var(--text-color); font-weight: 600; text-align: left; display: block; margin-bottom: 6px;">
+        Seu e-mail
+      </label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        placeholder="exemplo@exemplo.com"
+        required
+      />
+
+      <label for="contato" style="color: var(--text-color); font-weight: 600; text-align: left; display: block; margin-top: 12px; margin-bottom: 6px;">
+        Contato (WhatsApp)
+      </label>
+      <input
+        type="tel"
+        name="telefone"
+        id="contato"
+        placeholder="(XX) XXXXX-XXXX"
+      />
+
+      <label for="contatoalt" style="color: var(--text-color); font-weight: 600; text-align: left; display: block; margin-top: 12px; margin-bottom: 6px;">
+        Outro contato (opcional)
+      </label>
+      <input type="text" name="contatoalt" id="contatoalt" placeholder="discord ou telegram..." />
+
+      <label for="tipoctt" style="color: var(--text-color); font-weight: 600; text-align: left; display: block; margin-top: 12px; margin-bottom: 6px;">
+        Tipo de contato (opcional)
+      </label>
+      <select name="tipoctt" id="tipoctt" style="padding: 14px 20px; border-radius: 16px; border: 1.5px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.15); color: #000000; font-size: 1rem; outline: none; width: 100%; box-sizing: border-box; margin-bottom: 12px;">
+        <option value="" disabled selected>- = Selecione uma opção = -</option>
+        <option value="discord">Discord</option>
+        <option value="telegram">Telegram</option>
+      </select>
+
+      <button type="submit" style="margin-top: 24px;">Enviar Pedido</button>
+
+      {% if messages %}
+        <ul style="list-style:none; padding:0;">
+          {% for message in messages %}
+            <li style="color: {% if message.tags == 'success' %}#0f0{% else %}#f00{% endif %}; margin-top: 12px;">
+              {{ message }}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </form>
+  </div>
+</body>
+</html>
